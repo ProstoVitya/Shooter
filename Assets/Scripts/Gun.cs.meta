@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: ab2fab11156ed5845a01f06e4f3609ad
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - _muzzleFlash: {fileID: 4272120815601291621, guid: be2bff2ce6243f540abdf77d0f9788fe,
+      type: 3}
+  - _impactEffect: {fileID: 3884097183414704409, guid: db101e7239961b942a2bc9eba8af0dcb,
+      type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
