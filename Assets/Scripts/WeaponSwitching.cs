@@ -1,11 +1,13 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class WeaponSwitching : MonoBehaviour
 {
     private int _selectedWeapon = 0;
+
+    private void Start()
+    {
+        SwitchWeapon();
+    }
 
     private void Update()
     {

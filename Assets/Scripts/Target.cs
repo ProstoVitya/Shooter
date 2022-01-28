@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 public class Target : MonoBehaviour
 {
     [Min(1f)] public float heath = 50f;
+    [SerializeField] private UnityEvent _onDestroy;
 
     public void TakeDamage(float amount)
     {
@@ -10,12 +12,8 @@ public class Target : MonoBehaviour
 
         if (heath <= 0f)
         {
-            Die();
+            if (_onDestroy != null)
+                _onDestroy.Invoke();
         }
-    }
-
-    private void Die()
-    {
-        Destroy(gameObject);
     }
 }
