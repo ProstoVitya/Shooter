@@ -33,6 +33,7 @@ public class Gun : MonoBehaviour
     private void OnEnable()
     {
         _isReloading = false;
+        transform.parent.rotation = new Quaternion(0, 0, 0, 0);
     }
 
     private void Update()
@@ -100,7 +101,6 @@ public class Gun : MonoBehaviour
         yield return new WaitForSeconds(ReloadTime);
         for (int i = 0; i < 10; i++)
         {
-
             weaponHandler.transform.Rotate(-1f, 0f, 0f);
             yield return null;
         }
