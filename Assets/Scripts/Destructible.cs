@@ -15,6 +15,6 @@ public class Destructible : MonoBehaviour
         Destroy(gameObject);
 
         if(Random.Range(0f, 1f) <= _dropChance)
-            Instantiate(_drop, transform.position, transform.rotation);
+            Instantiate(_drop, transform.position, Quaternion.identity);
     }
 }
