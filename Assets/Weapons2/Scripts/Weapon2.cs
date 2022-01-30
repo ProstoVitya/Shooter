@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class Weapon : MonoBehaviour
+public class Weapon2 : MonoBehaviour
 {
     [Header("Throwing")]
     public float ThrowForce;

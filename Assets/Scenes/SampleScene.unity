@@ -1146,24 +1146,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4014075504734285136, guid: f8d82902aff21994baf76eacec59849e,
-        type: 3}
-      propertyPath: Tapable
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4014075504734285136, guid: f8d82902aff21994baf76eacec59849e,
-        type: 3}
-      propertyPath: AmmoType
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4014075504804837785, guid: f8d82902aff21994baf76eacec59849e,
         type: 3}
       propertyPath: m_Name
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 4014075504804837785, guid: f8d82902aff21994baf76eacec59849e,
-        type: 3}
-      propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 4014075504804837790, guid: f8d82902aff21994baf76eacec59849e,

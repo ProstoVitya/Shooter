@@ -5,14 +5,17 @@ using UnityEngine.UI;
 public class BulletsCounter : MonoBehaviour
 {
     [SerializeField] private Transform _weaponHandler;
-    private Gun _currentWeapon;
+    private Weapon _currentWeapon;
     private Text _bulletsCounterText;
 
     private void Start()
     {
         _bulletsCounterText = GetComponent<Text>();
         FindActiveWeapon();
-        _bulletsCounterText.text = $"{_currentWeapon.MaxAmmo}/{_currentWeapon.MaxAmmoInTheChamber}";
+        if(_currentWeapon.GetType().Equals(typeof(Gun)))
+            _bulletsCounterText.text = $"{((Gun)_currentWeapon).MaxAmmo}/{((Gun)_currentWeapon).MaxAmmoInTheChamber}";
+        else
+            _bulletsCounterText.text = $"";
     }
 
     private void LateUpdate()
@@ -34,7 +37,7 @@ public class BulletsCounter : MonoBehaviour
         {
             if (weapon.gameObject.activeSelf)
             {
-                _currentWeapon = weapon.GetComponent<Gun>();
+                _currentWeapon = weapon.GetComponent<Weapon>();
                 return;
             }
         }
@@ -42,12 +45,14 @@ public class BulletsCounter : MonoBehaviour
 
     private void SetBulletsCounterText()
     {
-        _bulletsCounterText.text = $"{_currentWeapon.TotalCurrentAmmo}/{_currentWeapon.CurrentAmmoInTheChamber}";
+        if (_currentWeapon.GetType().Equals(typeof(Gun)))
+            _bulletsCounterText.text = $"{((Gun)_currentWeapon).TotalCurrentAmmo}/{((Gun)_currentWeapon).CurrentAmmoInTheChamber}";
+        else _bulletsCounterText.text = $"";
     }
 
     private IEnumerator WaitForReloadAnimation()
     {
-        yield return new WaitForSeconds(_currentWeapon.ReloadTime);
+        yield return new WaitForSeconds(((Gun)_currentWeapon).ReloadTime);
         SetBulletsCounterText();
     }
 }

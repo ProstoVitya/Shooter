@@ -1,28 +1,19 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class Gun : MonoBehaviour
+public class Gun : Weapon
 {
-    [Header("Weapon Characteristics")]
-    [Min(0f)] public float Damage = 10f;
-    [Min(1f)] public float Range = 100f;
-    [Min(0.1f)] public float FireRate;
-    [Min(0f)] public float ImpactForce;
-    [Min(1)] public int MaxAmmo = 10;
-    [Min(1)] public int MaxAmmoInTheChamber = 10;
-    [Min(1f)] public float ReloadTime = 1f;
+    [Header("Gun Characteristics")]
+    [Min(1)] public int MaxAmmo;
+    [Min(1)] public int MaxAmmoInTheChamber;
+    [Min(1f)] public float ReloadTime;
     public bool Tapable;
-
-    [Header("Data")]
     public DataHandler.AmmoType AmmoType;
 
-    [Header("Particles")]
-    [SerializeField] private ParticleSystem _muzzleFlash;
-    [SerializeField] private GameObject _impactEffect;
+    [Header("Effects")]
+    public ParticleSystem AttackEffect;
 
-    private Camera _playerCamera;
     private bool _isReloading = false;
-    private bool _isShooting;
 
     public int TotalCurrentAmmo { get; private set; }
     public int CurrentAmmoInTheChamber { get; private set; }
@@ -51,38 +42,13 @@ public class Gun : MonoBehaviour
             }
 
             if ((Tapable ? Input.GetKeyDown(KeyCode.Mouse0) : Input.GetKey(KeyCode.Mouse0))
-                && !_isShooting && !_isReloading && CurrentAmmoInTheChamber > 0)
+                && !_isAttacking && !_isReloading && CurrentAmmoInTheChamber > 0)
             {
+                AttackEffect.Play();
                 Shoot();
-                StartCoroutine(ShootingCooldown());
+                StartCoroutine(AttackCooldown());
             }
         }
-    }
-    private void Shoot()
-    {
-        _muzzleFlash.Play();
-        --CurrentAmmoInTheChamber;
-        RaycastHit hit;
-        if (Physics.Raycast(_playerCamera.transform.position,
-            _playerCamera.transform.forward, out hit, Range))
-        {
-            Target target = hit.transform.GetComponent<Target>();
-
-            if (target != null)
-                target.TakeDamage(Damage);
-
-            if (hit.rigidbody != null)
-                hit.rigidbody.velocity += _playerCamera.transform.forward * ImpactForce;
-
-            Instantiate(_impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
-        }
-    }
-
-    private IEnumerator ShootingCooldown()
-    {
-        _isShooting = true;
-        yield return new WaitForSeconds(1f / FireRate);
-        _isShooting = false;
     }
 
     private IEnumerator Reloading()
@@ -128,5 +94,11 @@ public class Gun : MonoBehaviour
                 TotalCurrentAmmo = MaxAmmo;
             Destroy(ammo.gameObject);
         }
+    }
+
+    protected void Shoot()
+    {
+        --CurrentAmmoInTheChamber;
+        Attack();
     }
 }

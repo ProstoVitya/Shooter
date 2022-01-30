@@ -13,7 +13,7 @@ public class WeaponManager : MonoBehaviour
     public Transform PlayerCamera;
 
     private bool _isWeaponHeld;
-    private Weapon _heldWeapon;
+    private Weapon2 _heldWeapon;
 
     private void Update()
     {
@@ -60,7 +60,7 @@ public class WeaponManager : MonoBehaviour
             });
 
             _isWeaponHeld = true;
-            _heldWeapon = realList[0].transform.GetComponent<Weapon>();
+            _heldWeapon = realList[0].transform.GetComponent<Weapon2>();
             _heldWeapon.PickUp(WeaponHolder, PlayerCamera);
         }
     }
